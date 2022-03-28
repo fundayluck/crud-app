@@ -10,13 +10,12 @@ export default async function handler(req, res) {
   switch (method) {
     case "PUT":
       try {
-        const { first_name, last_name, email, phone, address } = req.body;
-        if ((!first_name && !last_name) || !email || !phone || !address) {
-          throw "Please fill all the fields";
-        }
+        const { fname, lname, email, phone, address } = req.body;
+        if (!fname && !lname && !email && !phone && !address)
+          return "invalid data";
         await Client.updateOne(
           { _id: ClientID },
-          { first_name, last_name, email, phone, address }
+          { fname, lname, email, phone, address }
         );
         res.status(200).json({ success: true });
       } catch (error) {

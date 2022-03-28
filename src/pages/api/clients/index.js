@@ -1,4 +1,4 @@
-import Client from "../../../models/clients";
+import Client from "../../../models/Clients";
 import dbConnection from "../../../service/dbConnection";
 
 dbConnection();
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     case "GET":
       try {
         const clients = await Client.find({});
-        res.status(200).json({ success: true, clients });
+        res.status(200).json({ success: true, data: clients });
       } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, error });
@@ -19,13 +19,13 @@ export default async function handler(req, res) {
 
     case "POST":
       try {
-        const { firstName, lastName, email, phone, address } = req.body;
-        if ((!firstName && !lastName) || !email || !phone || !address) {
+        const { fname, lname, email, phone, address } = req.body;
+        if ((!fname && !lname) || !email || !phone || !address) {
           throw "Please fill all the fields";
         }
         const client = await Client.create({
-          firstName,
-          lastName,
+          fname,
+          lname,
           email,
           phone,
           address,
