@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const ClientSchema = new mongoose.Schema({
+delete mongoose.connection.models["client"];
+
+const ClientSchema = mongoose.Schema({
   fname: String,
   lname: String,
   email: String,
@@ -11,7 +13,6 @@ const ClientSchema = new mongoose.Schema({
     default: new Date(),
   },
 });
-
 const Client = mongoose.models.Client || mongoose.model("client", ClientSchema);
 
 export default Client;

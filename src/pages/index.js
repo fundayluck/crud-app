@@ -188,59 +188,79 @@ export default function Home() {
             </form>
           </div>
         </div>
-        <div className="flex items-center justify-center py-12 px-4">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b-2 border-gray-200">
-              <tr>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  First Name
-                </th>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  Last Name
-                </th>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  Email
-                </th>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  Phone
-                </th>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  Address
-                </th>
-                <th className="p-3 text-sm font-semibold tracking-wide text-left">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {clients.map((client, index) => (
-                <tr className="bg-gray-50" key={index}>
-                  <td className="p-3 text-sm text-gray-700">{client.fname}</td>
-                  <td className="p-3 text-sm text-gray-700">{client.lname}</td>
-                  <td className="p-3 text-sm text-gray-700">{client.email}</td>
-                  <td className="p-3 text-sm text-gray-700">{client.phone}</td>
-                  <td className="p-3 text-sm text-gray-700">
-                    {client.address}
-                  </td>
-                  <td className="flex p-3 text-sm text-gray-700">
-                    <button
-                      className="p-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-                      onClick={() => handlShowUpdateClient(client)}
-                    >
-                      edit
-                    </button>
-
-                    <button
-                      className="p-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-                      onClick={() => handleDeleteClient(client._id)}
-                    >
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex items-center justify-center py-12 px-4 mr-10">
+          <div className="container flex justify-center mx-auto">
+            <div className="flex flex-col">
+              <div className="w-full">
+                <div className="border-b border-gray-200 shadow">
+                  <table>
+                    <thead className="bg-gray-50 border-b-2 border-gray-200">
+                      <tr>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          First Name
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Last Name
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Email
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Phone
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          Address
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          edit
+                        </th>
+                        <th className="p-3 text-sm font-semibold tracking-wide text-left">
+                          delete
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {clients.map((client, index) => (
+                        <tr className="bg-gray-50" key={index}>
+                          <td className="p-3 text-sm text-gray-700">
+                            {client.fname}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            {client.lname}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            {client.email}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            {client.phone}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            {client.address}
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            <button
+                              className="p-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+                              onClick={() => handlShowUpdateClient(client)}
+                            >
+                              edit
+                            </button>
+                          </td>
+                          <td className="p-3 text-sm text-gray-700">
+                            <button
+                              className="p-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                              onClick={() => handleDeleteClient(client._id)}
+                            >
+                              delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
