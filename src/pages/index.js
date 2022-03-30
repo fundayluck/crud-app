@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import Header from "../components/Header";
 import DataTable from "react-data-table-component";
 
@@ -38,13 +39,13 @@ export default function Home() {
     }
   };
 
-  const handlShowUpdateClient = (client) => {
-    setId(client._id);
-    setFName(client.fname);
-    setLname(client.lname);
-    setEmail(client.email);
-    setPhone(client.phone);
-    setAddress(client.address);
+  const handlShowUpdateClient = (row) => {
+    setId(row._id);
+    setFName(row.fname);
+    setLname(row.lname);
+    setEmail(row.email);
+    setPhone(row.phone);
+    setAddress(row.address);
   };
 
   const handleUpdateClient = async (e) => {
@@ -86,28 +87,53 @@ export default function Home() {
       name: "First name",
       selector: (row) => row.fname,
       sortable: true,
+      grow: 0.5,
     },
     {
       name: "Last Name",
       selector: (row) => row.lname,
       sortable: true,
+      grow: 0.5,
     },
     {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
+      grow: 0.5,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
       sortable: true,
+      grow: 0.5,
     },
     {
       name: "Address",
       selector: (row) => row.address,
       wrap: true,
       sortable: true,
+      grow: 0.5,
       format: (row) => `${row.address.slice(0, 200)}`,
+    },
+    {
+      name: "Action",
+      button: true,
+      cell: (row) => (
+        <div className="flex gap-2 mr-2">
+          <button
+            onClick={() => handlShowUpdateClient(row)}
+            className="w-[44px] h-[22px] border border-[#ADC6FF] rounded-sm bg-[#F0F5FF] hover:bg-[#ADC6FF] text-[#2F54EB]"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDeleteClient(row._id)}
+            className="w-[44px] h-[22px] border border-[#ADC6FF] rounded-sm bg-[#F0F5FF] hover:bg-[#ADC6FF] text-[#2F54EB]"
+          >
+            Delete
+          </button>
+        </div>
+      ),
     },
   ];
 
@@ -218,8 +244,8 @@ export default function Home() {
           </form>
         </div>
       </div>
-      <div className="bg-[#E5E5E5]  px-3  ">
-        <div className="md-flex  mx-auto rounded-xl shadow-md overflow-hidden w-full m-4 col-span-2 bg-[#FFFFFF] ">
+      <div className="bg-[#E5E5E5]  px-5  ">
+        <div className="md-flex  mx-auto rounded-xl shadow-md overflow-hidden m-4 col-span-2 bg-[#FFFFFF] ">
           <DataTable
             columns={columns}
             data={clients}
