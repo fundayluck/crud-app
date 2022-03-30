@@ -21,6 +21,4 @@ To learn more about database, take a look at the following resources:
 ![image](https://user-images.githubusercontent.com/48554914/160892025-724e8ba9-c71a-4a9d-bd71-fc51006ca8f2.png)
 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
 
