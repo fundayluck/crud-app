@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Header from "../components/Header";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
 
 import api from "../service/api";
 
@@ -15,8 +16,32 @@ export default function Home() {
   const [clients, setClients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const isValidFormData = () => {
+    if (!fname) {
+      return Swal.fire("Error", "Please enter first name", "error");
+    }
+    if (!lname) {
+      return Swal.fire("Error", "Please enter last name", "error");
+    }
+    if (!email) {
+      return Swal.fire("Error", "Please enter email", "error");
+    }
+    if (!phone) {
+      return Swal.fire("Error", "Please enter phone number", "error");
+    }
+    if (!address) {
+      return Swal.fire("Error", "Please enter address", "error");
+    }
+
+    if (clients.some((client) => client.email === email && client._id !== id)) {
+      return Swal.fire("Oops...", "E-mail already registered!!", "error");
+    }
+  };
+
   const handleSubmitCreateClient = async (e) => {
     e.preventDefault();
+
+    if (isValidFormData()) return;
     try {
       setIsLoading(true);
       const data = await api.post("/clients", {
@@ -50,6 +75,8 @@ export default function Home() {
 
   const handleUpdateClient = async (e) => {
     e.preventDefault();
+
+    if (isValidFormData()) return;
 
     try {
       setIsLoading(true);
@@ -113,7 +140,6 @@ export default function Home() {
       wrap: true,
       sortable: true,
       grow: 0.5,
-      format: (row) => `${row.address.slice(0, 200)}`,
     },
     {
       name: "Action",
@@ -158,7 +184,6 @@ export default function Home() {
                   name="firstName"
                   type="name"
                   autoComplete="name"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="First Name"
                   value={fname}
@@ -174,7 +199,6 @@ export default function Home() {
                   name="lastName"
                   type="name"
                   autoComplete="lastName"
-                  required
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Last Name"
                   value={lname}
@@ -190,7 +214,6 @@ export default function Home() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email"
                   value={email}
@@ -203,13 +226,14 @@ export default function Home() {
                 </label>
                 <input
                   id="phone"
-                  name="phone"
-                  pattern="[0-9]{10}"
                   type="tel"
+                  name="AUS"
+                  pattern="[0-9]{4}[0-9]{4}[0-9]{4}"
+                  maxLength={12}
                   autoComplete="phone"
                   required
                   className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Phone"
+                  placeholder="Phone eg. 081223232323"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -223,7 +247,6 @@ export default function Home() {
                   name="address"
                   type="text"
                   autoComplete="address"
-                  required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Address"
                   value={address}
